@@ -4,3 +4,4 @@
 # pytest-catchlog           # Show log output for test failures
 pytest-cov                # pytest extension for code coverage statistics
 pytest-django             # pytest extension for better Django support
+pytest-custom-exit-code   # Exit pytest test session with custom exit code in different scenarios

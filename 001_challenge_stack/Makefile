@@ -52,7 +52,7 @@ requirements: ## install development environment requirements
 	pip-sync requirements/dev.txt requirements/private.* requirements/test.txt
 
 test: clean ## run tests in the current virtualenv
-	py.test
+	py.test --suppress-no-test-exit-code
 
 bootstrap: upgrade requirements migrate data
 	@echo "-------------------------"
