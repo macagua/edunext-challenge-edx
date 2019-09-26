@@ -1,6 +1,8 @@
 Challenge stack
 ===============
 
+[![CircleCI](https://circleci.com/bb/macagua/edunext-challenge.svg?style=svg)](https://circleci.com/bb/macagua/edunext-challenge)
+
 This application is a sample REST API provided for the eduNEXT developer challenge.
 
 The application you develop should interact with this app as it would do with other applications on our production environment. There is no need to modify the code running here.
