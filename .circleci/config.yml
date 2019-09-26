@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/circleci-edunext-challenge
     docker:
       # every job must define an image for the docker executor and subsequent jobs may define a different image.
-      - image: circleci/python:3.6.4
+      - image: circleci/python:2.7.16-stretch
     steps:
       # Step 1 - obtain repo from GitHub
       - checkout # checkout source code to working directory
