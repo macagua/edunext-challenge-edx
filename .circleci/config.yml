@@ -10,7 +10,7 @@ jobs:
       # Step 1 - obtain repo from GitHub
       - checkout # checkout source code to working directory
       - restore_cache: # ensure this step occurs *before* installing dependencies
-          key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "001_challenge_stack/requirements/dev.txt" }}
       # Step 2 - create virtual env and install dependencies
       - run:
           name: Install dependencies
@@ -19,7 +19,7 @@ jobs:
             . venv/bin/activate
             make bootstrap
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "001_challenge_stack/requirements/dev.txt" }}
           paths:
             - "venv"
       # Step 3 - run linter and tests
@@ -27,9 +27,9 @@ jobs:
           name: Running tests
           command: |
             . venv/bin/activate
-            mkdir -p ~/circleci-edunext-challenge/coveragereport
+            mkdir -p ~/circleci-edunext-challenge/001_challenge_stack/coveragereport
             make test
       - store_artifacts: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: coveragereport/
+          path: 001_challenge_stack/coveragereport/
       - store_test_results: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: coveragereport/
+          path: 001_challenge_stack/coveragereport/
