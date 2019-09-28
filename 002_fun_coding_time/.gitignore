@@ -65,8 +65,8 @@ docs/paypal.rst
 docs/paypal.*.rst
 
 # Private requirements
-requirements/private.in
-requirements/private.txt
+*/requirements/private.in
+*/requirements/private.txt
 
 # tox environment temporary artifacts
 tests/__init__.py
@@ -74,4 +74,4 @@ tests/__init__.py
 # Development task artifacts
 default.db
 venv/
-requirements/*.txt
+*/requirements/*.txt
