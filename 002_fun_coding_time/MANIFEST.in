@@ -1,0 +1,14 @@
+include AUTHORS
+include CHANGELOG.rst
+include LICENSE
+include MANIFEST.in
+include Makefile
+include README.rst
+include *.rst *.txt *.in
+include *.py
+recursive-include paymentprocessor *
+exclude paymentprocessor/requirements/*.txt
+global-exclude __pycache__
+global-exclude *.py[co] *~
+prune build
+prune dist

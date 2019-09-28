@@ -14,6 +14,7 @@ webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
 endef
 export BROWSER_PYSCRIPT
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
+PROJECT_NAME = "paymentprocessor"
 
 help: ## display this help message
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -36,34 +37,34 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	tox -e docs
 	$(BROWSER) docs/_build/html/index.html
 
-upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
+upgrade: ## update the paymentprocessor/requirements/*.txt files with the latest packages satisfying paymentprocessor/requirements/*.in
 	pip install -q pip-tools --timeout 120
-	pip-compile -v --upgrade -o requirements/dev.txt requirements/base.in requirements/dev.in requirements/quality.in
-	pip-compile -v --upgrade -o requirements/doc.txt requirements/base.in requirements/doc.in
-	pip-compile -v --upgrade -o requirements/quality.txt requirements/quality.in
-	pip-compile -v --upgrade -o requirements/test.txt requirements/base.in requirements/test.in
-	pip-compile -v --upgrade -o requirements/travis.txt requirements/travis.in
+	pip-compile -v --upgrade -o $(PROJECT_NAME)/requirements/dev.txt $(PROJECT_NAME)/requirements/base.in $(PROJECT_NAME)/requirements/dev.in $(PROJECT_NAME)/requirements/quality.in
+	pip-compile -v --upgrade -o $(PROJECT_NAME)/requirements/doc.txt $(PROJECT_NAME)/requirements/base.in $(PROJECT_NAME)/requirements/doc.in
+	pip-compile -v --upgrade -o $(PROJECT_NAME)/requirements/quality.txt $(PROJECT_NAME)/requirements/quality.in
+	pip-compile -v --upgrade -o $(PROJECT_NAME)/requirements/test.txt $(PROJECT_NAME)/requirements/base.in $(PROJECT_NAME)/requirements/test.in
+	pip-compile -v --upgrade -o $(PROJECT_NAME)/requirements/travis.txt $(PROJECT_NAME)/requirements/travis.in
 	# Let tox control the Django version for tests
-	sed '/django==/d' requirements/test.txt > requirements/test.tmp
-	mv requirements/test.tmp requirements/test.txt
+	sed '/django==/d' $(PROJECT_NAME)/requirements/test.txt > $(PROJECT_NAME)/requirements/test.tmp
+	mv $(PROJECT_NAME)/requirements/test.tmp $(PROJECT_NAME)/requirements/test.txt
 
 requirements: ## install development environment requirements
-	pip install -qr requirements/dev.txt --exists-action w --timeout 120
-	pip-sync requirements/dev.txt requirements/private.* requirements/test.txt
+	pip install -qr $(PROJECT_NAME)/requirements/dev.txt --exists-action w --timeout 120
+	pip-sync $(PROJECT_NAME)/requirements/dev.txt $(PROJECT_NAME)/requirements/private.* $(PROJECT_NAME)/requirements/test.txt
 
 test: clean ## run tests in the current virtualenv
-	py.test --suppress-no-test-exit-code
+	pytest --suppress-no-test-exit-code
 
-bootstrap: upgrade requirements migrate
+bootstrap: upgrade requirements migrate ## bootstrap your environment is ready
 	@echo "-------------------------"
 	@echo "Your environment is ready"
 	@echo "Now run: make run"
 
 migrate:
-	python manage.py migrate
+	python $(PROJECT_NAME)/manage.py migrate
 
-run:
-	python manage.py runserver 0.0.0.0:8011
+run: ## run the django run server
+	python $(PROJECT_NAME)/manage.py runserver 0.0.0.0:8011
 
 diff_cover: test
 	diff-cover coverage.xml
