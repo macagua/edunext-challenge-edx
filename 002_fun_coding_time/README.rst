@@ -5,14 +5,17 @@ PyPalPP
 .. image:: https://circleci.com/bb/macagua/edunext-challenge.svg?style=svg
     :target: https://circleci.com/bb/macagua/edunext-challenge
 
-PyPalPP means PyPal Payment Processor. This application is a REST API provided for the eduNEXT Backend developer challenge.
+PyPalPP means PyPal Payment Processor. This application is a REST API 
+provided for the eduNEXT Backend developer challenge.
 
 Getting started
 ===============
 
-To get you started on the challenge quickly, we have created some bootstrapping scripts to make things easier.
+To get you started on the challenge quickly, we have created some bootstrapping 
+scripts to make things easier.
 
-In plain language all you need to do is create a virtualenv [#f1]_ and run the bootstrap target with make.
+In plain language all you need to do is create a virtualenv [#f1]_ and run the 
+bootstrap target with make.
 
 A detailed step by step description is:
 
@@ -22,10 +25,30 @@ A detailed step by step description is:
 	$ virtualenv --python=python3 venv
 	$ source venv/bin/activate
 	$ make bootstrap
-	$ make run
 
-The development server should have started now. You can visit the API by navigating in a browser to : `http://localhost:8011/api/v1/MAIN-ENDPOINT/ <http://localhost:8011/api/v1/MAIN-ENDPOINT/>`_.
+Executing run server
+====================
 
+To executing the Django run server, executing the following commands:
+
+::
+
+    $ cd 002_fun_coding_time
+    $ make run
+
+The development server should have started now. You can visit the API by navigating 
+in a browser to : `http://localhost:8011/api/v1/MAIN-ENDPOINT/ <http://localhost:8011/api/v1/MAIN-ENDPOINT/>`_.
+
+
+Testing
+=======
+
+To run your tests, executing the following commands:
+
+::
+
+    $ cd 002_fun_coding_time
+    $ make test
 
 ----
 
