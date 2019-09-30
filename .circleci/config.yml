@@ -49,7 +49,6 @@ jobs:
       - run:
           name: Running tests
           command: |
-            mkdir -p ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}/coveragereport
             make test
 
       # Step 3.1 - run tox tests
@@ -101,7 +100,6 @@ jobs:
       - run:
           name: Running tests
           command: |
-            mkdir -p ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}/coveragereport
             make test
 
       # Step 3.1 - run tox tests
