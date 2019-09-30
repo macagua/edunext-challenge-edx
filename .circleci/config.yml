@@ -1,133 +1,101 @@
 # Python CircleCI 2.0 configuration file https://circleci.com/docs/2.0/configuration-reference/
-version: 2.0
+version: 2
 
-common: &common
-  working_directory: ~/repo
-  steps:
-    # Step 1 - obtain repo from GitHub
-    - checkout # checkout source code to working directory
-    - restore_cache: # ensure this step occurs *before* installing dependencies
-        keys:
-          - v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
-          - v2-deps-
+# CircleCI Common References
+references:
+  deps_cache_key: &deps_cache_key
+    v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+  deps_backup_cache_key: &deps_backup_cache_key
+    v2-deps-
+  save_cache_paths: &save_cache_paths
+    - ./venv
+    - .tox
+    - ~/.cache/pip
+    - ~/.local
+    - ./eggs
 
-    # Step 2 - create virtual env and install dependencies
-    - run:
-        name: Install dependencies
-        command: |
-          sudo apt-get install python-virtualenv
-          python -m virtualenv venv
-          . venv/bin/activate
-          cd ~/repo/001_challenge_stack/
-          make bootstrap
+  common: &common
+    working_directory: ~/repo
+    steps:
+      # Step 1 - obtain repo from GitHub
+      - checkout # checkout source code to working directory
+      - restore_cache: # ensure this step occurs *before* installing dependencies
+          keys:
+            - *deps_cache_key
+            - *deps_backup_cache_key
 
-    # Step 3 - run linter and tests
-    - run:
-        name: Running tests
-        command: |
-          . venv/bin/activate
-          mkdir -p ~/repo/001_challenge_stack/coveragereport
-          cd ~/repo/001_challenge_stack/
-          make test
+      # Step 2 - create virtual env and install dependencies
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get install python-virtualenv
+            python -m virtualenv venv
+            . venv/bin/activate
+            cd ${PROJECT_NAME}
+            make bootstrap
 
-    # Step 3.1 - run tox tests
-    - run:
-        name: Running tox tests
-        command: |
-          . venv/bin/activate
-          mkdir -p ~/repo/001_challenge_stack/coveragereport
-          cd ~/repo/001_challenge_stack/
-          make test-all
+      # Step 3.0 - run linter and tests
+      - run:
+          name: Running tests
+          command: |
+            mkdir -p ${PROJECT_NAME}/coveragereport
+            make test
 
-    # Step 4 - run server for 001_challenge_stack
-    - run:
-        name: Install dependencies
-        command: |
-          . venv/bin/activate
-          cd ~/repo/001_challenge_stack/
-          make run
+      # Step 3.1 - run tox tests
+      - run:
+          name: Running tox tests
+          command: |
+            make test-all
 
-    - save_cache: # generates and stores a cache of a file or directory of files such as dependencies or source code in our object storage.
-        paths:
-          - ./venv
-          - .tox
-          - ~/.cache/pip
-          - ~/.local
-          - ./eggs
-        key: v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+      # Step 4 - run server for 001_challenge_stack
+      - run:
+          name: Install dependencies
+          command: |
+            make run
 
-common_py35: &common_py35
-  working_directory: ~/repo
-  steps:
-    # Step 1 - obtain repo from GitHub
-    - checkout # checkout source code to working directory
-    - restore_cache: # ensure this step occurs *before* installing dependencies
-        keys:
-          - v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
-          - v2-deps-
+      # Generates and stores a cache of a file or directory of files such as
+      # dependencies or source code in our object storage.
+      - save_cache:
+          paths: *save_cache_paths
+          key: *deps_cache_key
 
-    # Step 2 - create virtual env and install dependencies
-    - run:
-        name: Install dependencies
-        command: |
-          sudo apt-get install python-virtualenv
-          python -m virtualenv venv
-          . venv/bin/activate
-          cd ~/repo/002_fun_coding_time/
-          make bootstrap
 
-    # Step 3 - run linter and tests
-    - run:
-        name: Running tests
-        command: |
-          . venv/bin/activate
-          mkdir -p ~/repo/002_fun_coding_time/coveragereport
-          cd ~/repo/002_fun_coding_time/
-          make test
-
-    # Step 3.1 - run tox tests
-    - run:
-        name: Running tox tests
-        command: |
-          . venv/bin/activate
-          mkdir -p ~/repo/002_fun_coding_time/coveragereport
-          cd ~/repo/002_fun_coding_time/
-          make test-all
-
-    # Step 4 - run server for 002_fun_coding_time
-    - run:
-        name: Install dependencies
-        command: |
-          . venv/bin/activate
-          cd ~/repo/002_fun_coding_time/
-          make run
-
-    - save_cache: # generates and stores a cache of a file or directory of files such as dependencies or source code in our object storage.
-        paths:
-          - ./venv
-          - .tox
-          - ~/.cache/pip
-          - ~/.local
-          - ./eggs
-        key: v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
-
+# CircleCI Jobs
 jobs:
   001_challenge_stack:
-    <<: *common
     docker:
-      # every job must define an image for the docker executor and subsequent jobs may define a different image.
+      # Every job must define an image for the docker executor and subsequent
+      # jobs may define a different image.
       - image: circleci/python:2.7.16-stretch
-  002_fun_coding_time:
-    <<: *common_py35
-    docker:
-      # every job must define an image for the docker executor and subsequent jobs may define a different image.
-      - image: circleci/python:3.5.7-stretch
+    environment:
+      # PROJECT_NAME: ~/repo/001_challenge_stack
+      PROJECT_NAME: {{ .Environment.CIRCLE_WORKING_DIRECTORY }}/001_challenge_stack
+    <<: *common
 
+  002_fun_coding_time:
+    docker:
+      # Every job must define an image for the docker executor and subsequent
+      # jobs may define a different image.
+      - image: circleci/python:3.5.7-stretch
+    environment:
+      PROJECT_NAME: ~/repo/002_fun_coding_time
+    <<: *common
+
+
+# CircleCI Workflows
 workflows:
   version: 2
-  test:
+  api_back:
     jobs:
-      - 001_challenge_stack
-      - 002_fun_coding_time
-        requires:
-          - 001_challenge_stack
+      - 001_challenge_stack:
+          filters:
+            branches:
+              only: master
+  api_proxy:
+    jobs:
+      - 002_fun_coding_time:
+          requires:
+            - api_back
+          filters:
+            branches:
+              only: master
