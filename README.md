@@ -1,5 +1,7 @@
 # eduNEXT Coding Challenge
 
+[![CircleCI](https://circleci.com/bb/macagua/edunext-challenge.svg?style=svg)](https://circleci.com/bb/macagua/edunext-challenge)
+
 In this repository you will find the description and files of three coding challenges.
 
 ## For Devs: Back end
