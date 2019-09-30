@@ -37,21 +37,22 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(BROWSER) docs/_build/html/index.html
 
 upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
-	pip install -q pip-tools
-	pip-compile --upgrade -o requirements/dev.txt requirements/base.in requirements/dev.in requirements/quality.in
-	pip-compile --upgrade -o requirements/doc.txt requirements/base.in requirements/doc.in
-	pip-compile --upgrade -o requirements/quality.txt requirements/quality.in
-	pip-compile --upgrade -o requirements/test.txt requirements/base.in requirements/test.in
-	pip-compile --upgrade -o requirements/travis.txt requirements/travis.in
+	pip install -q pip-tools --timeout 120
+	pip-compile -v --upgrade -o requirements/dev.txt requirements/base.in requirements/dev.in requirements/quality.in
+	pip-compile -v --upgrade -o requirements/doc.txt requirements/base.in requirements/doc.in
+	pip-compile -v --upgrade -o requirements/quality.txt requirements/quality.in
+	pip-compile -v --upgrade -o requirements/test.txt requirements/base.in requirements/test.in
+	pip-compile -v --upgrade -o requirements/travis.txt requirements/travis.in
 	# Let tox control the Django version for tests
 	sed '/django==/d' requirements/test.txt > requirements/test.tmp
 	mv requirements/test.tmp requirements/test.txt
 
 requirements: ## install development environment requirements
-	pip install -qr requirements/dev.txt --exists-action w
+	pip install -qr requirements/dev.txt --exists-action w --timeout 120
 	pip-sync requirements/dev.txt requirements/private.* requirements/test.txt
 
 test: clean ## run tests in the current virtualenv
+	pip install -qr requirements/test.txt --exists-action w --timeout 120
 	py.test --suppress-no-test-exit-code
 
 bootstrap: upgrade requirements migrate data

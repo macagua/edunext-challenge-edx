@@ -14,7 +14,7 @@ webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
 endef
 export BROWSER_PYSCRIPT
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
-PROJECT_NAME = "paymentprocessor"
+PROJECT_NAME = paymentprocessor
 
 help: ## display this help message
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -53,6 +53,7 @@ requirements: ## install development environment requirements
 	pip-sync $(PROJECT_NAME)/requirements/dev.txt $(PROJECT_NAME)/requirements/private.* $(PROJECT_NAME)/requirements/test.txt
 
 test: clean ## run tests in the current virtualenv
+	pip install -qr $(PROJECT_NAME)/requirements/test.txt --exists-action w --timeout 120
 	pytest --suppress-no-test-exit-code
 
 bootstrap: upgrade requirements migrate ## bootstrap your environment is ready
