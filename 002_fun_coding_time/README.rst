@@ -14,7 +14,7 @@ Getting started
 To get you started on the challenge quickly, we have created some bootstrapping 
 scripts to make things easier.
 
-In plain language all you need to do is create a virtualenv [#f1]_ and run the 
+In plain language all you need to do is create a virtualenv [1] and run the 
 bootstrap target with make.
 
 A detailed step by step description is:
@@ -54,6 +54,9 @@ To run your tests, executing the following commands:
 
 .. rubric:: Footnotes
 
-.. [#f1]: Virtualenv is a python utility to make development simple. A guide on how to install virtualenv for Linux, 
-   Mac and Windows is available here (no need to do the django part): http://pythoncentral.io/how-to-install-python-django-windows-mac-linux/ 
-   **Disclaimer**: this instructions were tested using a linux OS, if you have problems running this in a different OS, please let us know.
+[1]: Virtualenv is a python utility to make development simple. A guide
+     on how to install virtualenv for Linux, Mac and Windows is available 
+     here (no need to do the django part): http://pythoncentral.io/how-to-install-python-django-windows-mac-linux/
+
+     **Disclaimer**: this instructions were tested using a linux OS, if you 
+     have problems running this in a different OS, please let us know.
