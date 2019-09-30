@@ -49,18 +49,24 @@ jobs:
       - run:
           name: Running tests
           command: |
+            . venv/bin/activate
+            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
             make test
 
       # Step 3.1 - run tox tests
       - run:
           name: Running tox tests
           command: |
+            . venv/bin/activate
+            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
             make test-all
 
       # Step 4 - run server for 001_challenge_stack
       - run:
           name: Install dependencies
           command: |
+            . venv/bin/activate
+            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
             make run
 
       # Generates and stores a cache of a file or directory of files such as
@@ -100,18 +106,24 @@ jobs:
       - run:
           name: Running tests
           command: |
+            . venv/bin/activate
+            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
             make test
 
       # Step 3.1 - run tox tests
       - run:
           name: Running tox tests
           command: |
+            . venv/bin/activate
+            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
             make test-all
 
       # Step 4 - run server for 002_challenge_stack
       - run:
           name: Install dependencies
           command: |
+            . venv/bin/activate
+            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
             make run
 
       # Generates and stores a cache of a file or directory of files such as
