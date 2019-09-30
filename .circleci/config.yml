@@ -15,7 +15,7 @@ references:
     - ./eggs
 
   common: &common
-    working_directory: ~/repo
+    working_directory: ~/repo # as $CIRCLE_WORKING_DIRECTORY
     steps:
       # Step 1 - obtain repo from GitHub
       - checkout # checkout source code to working directory
@@ -68,8 +68,7 @@ jobs:
       # jobs may define a different image.
       - image: circleci/python:2.7.16-stretch
     environment:
-      # PROJECT_NAME: ~/repo/001_challenge_stack
-      PROJECT_NAME: {{ .Environment.CIRCLE_WORKING_DIRECTORY }}/001_challenge_stack
+      PROJECT_NAME: ~/repo/001_challenge_stack
     <<: *common
 
   002_fun_coding_time:
