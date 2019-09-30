@@ -4,7 +4,7 @@ version: 2
 # CircleCI Common References
 references:
   deps_cache_key: &deps_cache_key
-    v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+    v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "tox.ini" }}
   deps_backup_cache_key: &deps_backup_cache_key
     v2-deps-
   save_cache_paths: &save_cache_paths
