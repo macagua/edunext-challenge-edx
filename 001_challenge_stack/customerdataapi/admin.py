@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Admin views to update the models using the built in admin funciont
 """

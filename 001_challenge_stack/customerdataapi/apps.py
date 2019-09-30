@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 customerdataapi Django application initialization.
 """
