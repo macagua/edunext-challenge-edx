@@ -93,8 +93,8 @@ workflows:
   api_proxy:
     jobs:
       - 002_fun_coding_time:
-          requires:
-            - api_back
+          # requires:
+          #   - api_back
           filters:
             branches:
               only: master
