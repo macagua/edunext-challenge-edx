@@ -1,38 +1,133 @@
-# Python CircleCI 2.0 configuration file
-version: 2
+# Python CircleCI 2.0 configuration file https://circleci.com/docs/2.0/configuration-reference/
+version: 2.0
+
+common: &common
+  working_directory: ~/repo
+  steps:
+    # Step 1 - obtain repo from GitHub
+    - checkout # checkout source code to working directory
+    - restore_cache: # ensure this step occurs *before* installing dependencies
+        keys:
+          - v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+          - v2-deps-
+
+    # Step 2 - create virtual env and install dependencies
+    - run:
+        name: Install dependencies
+        command: |
+          sudo apt-get install python-virtualenv
+          python -m virtualenv venv
+          . venv/bin/activate
+          cd ~/repo/001_challenge_stack/
+          make bootstrap
+
+    # Step 3 - run linter and tests
+    - run:
+        name: Running tests
+        command: |
+          . venv/bin/activate
+          mkdir -p ~/repo/001_challenge_stack/coveragereport
+          cd ~/repo/001_challenge_stack/
+          make test
+
+    # Step 3.1 - run tox tests
+    - run:
+        name: Running tox tests
+        command: |
+          . venv/bin/activate
+          mkdir -p ~/repo/001_challenge_stack/coveragereport
+          cd ~/repo/001_challenge_stack/
+          make test-all
+
+    # Step 4 - run server for 001_challenge_stack
+    - run:
+        name: Install dependencies
+        command: |
+          . venv/bin/activate
+          cd ~/repo/001_challenge_stack/
+          make run
+
+    - save_cache: # generates and stores a cache of a file or directory of files such as dependencies or source code in our object storage.
+        paths:
+          - ./venv
+          - .tox
+          - ~/.cache/pip
+          - ~/.local
+          - ./eggs
+        key: v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+
+common_py35: &common_py35
+  working_directory: ~/repo
+  steps:
+    # Step 1 - obtain repo from GitHub
+    - checkout # checkout source code to working directory
+    - restore_cache: # ensure this step occurs *before* installing dependencies
+        keys:
+          - v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+          - v2-deps-
+
+    # Step 2 - create virtual env and install dependencies
+    - run:
+        name: Install dependencies
+        command: |
+          sudo apt-get install python-virtualenv
+          python -m virtualenv venv
+          . venv/bin/activate
+          cd ~/repo/002_fun_coding_time/
+          make bootstrap
+
+    # Step 3 - run linter and tests
+    - run:
+        name: Running tests
+        command: |
+          . venv/bin/activate
+          mkdir -p ~/repo/002_fun_coding_time/coveragereport
+          cd ~/repo/002_fun_coding_time/
+          make test
+
+    # Step 3.1 - run tox tests
+    - run:
+        name: Running tox tests
+        command: |
+          . venv/bin/activate
+          mkdir -p ~/repo/002_fun_coding_time/coveragereport
+          cd ~/repo/002_fun_coding_time/
+          make test-all
+
+    # Step 4 - run server for 002_fun_coding_time
+    - run:
+        name: Install dependencies
+        command: |
+          . venv/bin/activate
+          cd ~/repo/002_fun_coding_time/
+          make run
+
+    - save_cache: # generates and stores a cache of a file or directory of files such as dependencies or source code in our object storage.
+        paths:
+          - ./venv
+          - .tox
+          - ~/.cache/pip
+          - ~/.local
+          - ./eggs
+        key: v2-deps-{{ .Environment.CIRCLE_JOB }}-{{ checksum "setup.py" }}-{{ checksum "tox.ini" }}
+
 jobs:
-  build:
-    working_directory: ~/circleci-edunext-challenge
+  001_challenge_stack:
+    <<: *common
     docker:
       # every job must define an image for the docker executor and subsequent jobs may define a different image.
       - image: circleci/python:2.7.16-stretch
-    steps:
-      # Step 1 - obtain repo from GitHub
-      - checkout # checkout source code to working directory
-      - restore_cache: # ensure this step occurs *before* installing dependencies
-          key: deps1-{{ .Branch }}-{{ checksum "~/circleci-edunext-challenge/001_challenge_stack/requirements/dev.txt" }}
-      # Step 2 - create virtual env and install dependencies
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get install python-virtualenv
-            python -m virtualenv venv
-            . venv/bin/activate
-            cd ~/circleci-edunext-challenge/001_challenge_stack/
-            make bootstrap
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "~/circleci-edunext-challenge/001_challenge_stack/requirements/dev.txt" }}
-          paths:
-            - "venv"
-      # Step 3 - run linter and tests
-      - run:
-          name: Running tests
-          command: |
-            . venv/bin/activate
-            mkdir -p ~/circleci-edunext-challenge/001_challenge_stack/coveragereport
-            cd ~/circleci-edunext-challenge/001_challenge_stack/
-            make test
-      - store_artifacts: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: 001_challenge_stack/coveragereport/
-      - store_test_results: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: 001_challenge_stack/coveragereport/
+  002_fun_coding_time:
+    <<: *common_py35
+    docker:
+      # every job must define an image for the docker executor and subsequent jobs may define a different image.
+      - image: circleci/python:3.5.7-stretch
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - 001_challenge_stack
+      - 002_fun_coding_time
+        requires:
+          - 001_challenge_stack
