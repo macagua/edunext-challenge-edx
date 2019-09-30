@@ -2,6 +2,7 @@
 
 caniusepython3            # Additional Python 3 compatibility pylint checks
 edx-lint                  # edX pylint rules and plugins
+flake8                    # A wrapper for displays the warnings in a per-file, merged output
 isort                     # to standardize order of imports
 pycodestyle               # PEP 8 compliance validation
 pydocstyle                # PEP 257 compliance validation

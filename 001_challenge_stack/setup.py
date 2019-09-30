@@ -65,4 +65,6 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
     ],
+    license='Other/Proprietary License',
+    platforms='OS Independent',
 )
