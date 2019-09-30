@@ -4,9 +4,9 @@ version: 2
 # CircleCI Common References
 references:
   deps_cache_key_001: &deps_cache_key_001
-    dependency-cache-{{ checksum "~/repo/001_challenge_stack/requirements/dev.txt" }}
+    dependency-cache-{{ checksum "/home/circleci/project/001_challenge_stack/requirements/dev.txt" }}
   deps_cache_key_002: &deps_cache_key_002
-    dependency-cache-{{ checksum "~/repo/002_fun_coding_time/requirements/dev.txt" }}
+    dependency-cache-{{ checksum "/home/circleci/project/002_fun_coding_time/requirements/dev.txt" }}
   deps_backup_cache_key: &deps_backup_cache_key
     dependency-cache-
   save_cache_paths: &save_cache_paths
@@ -25,7 +25,7 @@ jobs:
       - image: circleci/python:2.7.16-stretch
     environment:
       PROJECT_NAME: 001_challenge_stack
-    working_directory: ~/repo # as $CIRCLE_WORKING_DIRECTORY
+    working_directory: /home/circleci/project # as $CIRCLE_WORKING_DIRECTORY
     steps:
       # Step 1 - obtain repo from GitHub
       - checkout # checkout source code to working directory
@@ -77,7 +77,7 @@ jobs:
       - image: circleci/python:3.5.7-stretch
     environment:
       PROJECT_NAME: 002_fun_coding_time
-    working_directory: ~/repo # as $CIRCLE_WORKING_DIRECTORY
+    working_directory: /home/circleci/project # as $CIRCLE_WORKING_DIRECTORY
     steps:
       # Step 1 - obtain repo from GitHub
       - checkout # checkout source code to working directory
