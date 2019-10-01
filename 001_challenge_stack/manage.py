@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-"""
-Django administration utility.
-"""
+"""Django administration utility."""
 
 from __future__ import absolute_import, unicode_literals
 

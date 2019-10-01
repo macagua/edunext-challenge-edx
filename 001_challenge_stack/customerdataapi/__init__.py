@@ -1,6 +1,4 @@
-"""
-An example service where we store customer data.
-"""
+"""An example service where we store customer data."""
 
 from __future__ import absolute_import, unicode_literals
 
