@@ -56,6 +56,20 @@ To run the test suite against all support Python versions (2.7 and 3.5), executi
 
     $ make test-all
 
+
+Distribution
+============
+
+For build the packages distribution for release in `PyPI <https://pypi.org>`_.
+If you are unfamiliar with it, check out this handy
+`cheatsheet <https://github.com/ralsina/rst-cheatsheet/blob/master/rst-cheatsheet.rst>`_.
+
+To build the docs and see the docs, after building, executing the following commands:
+
+::
+
+    $ make distros
+
 ----
 
 .. rubric:: Footnotes

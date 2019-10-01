@@ -33,6 +33,11 @@ erase: clean ## remove everthing, but the code.
 	rm -fr venv/
 	git clean -fx
 
+distros: ## build distribution for release at PyPI.
+	python ./setup.py -v build
+	python ./setup.py -v sdist
+	python ./setup.py -v bdist_wheel
+
 docs: ## generate Sphinx HTML documentation, including API docs
 	tox -e docs
 	$(BROWSER) docs/_build/html/index.html
