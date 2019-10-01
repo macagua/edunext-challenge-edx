@@ -5,13 +5,12 @@ import os
 import re
 import sys
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 
 def get_version(*file_paths):
-    """
-    Extract the version string from the file at the given relative path fragments.
-    """
+    """Extract the version string."""
+    # Extract the version string from the file at the given relative path fragments.
     filename = os.path.join(os.path.dirname(__file__), *file_paths)
     version_file = open(filename).read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
@@ -23,6 +22,7 @@ def get_version(*file_paths):
 
 PCKS = find_packages(exclude=['tests', 'tests.*']),
 VERSION = get_version(str(PCKS[0][0]), '__init__.py')
+DESCRIPTION = """An REST API that processor the client payments from Paypal."""
 
 if sys.argv[-1] == 'tag':
     print("Tagging the version on github:")
@@ -31,7 +31,9 @@ if sys.argv[-1] == 'tag':
     sys.exit()
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-CHANGELOG = open(os.path.join(os.path.dirname(__file__), 'CHANGELOG.rst')).read()
+CHANGELOG = open(os.path.join(
+    os.path.dirname(__file__), 'CHANGELOG.rst')).read()
+
 # Get more https://pypi.org/pypi?%3Aaction=list_classifiers
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
@@ -61,7 +63,7 @@ CLASSIFIERS = [
 setup(
     name=str(PCKS[0][0]),
     version=VERSION,
-    description="""An REST API that processor the client payments from the Paypal service.""",
+    description=DESCRIPTION,
     long_description=README + '\n\n' + CHANGELOG,
     author='Leonardo J. Caballero G.',
     author_email='leonardocaballero@gmail.com',

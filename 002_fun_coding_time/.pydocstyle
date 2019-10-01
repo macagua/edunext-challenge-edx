@@ -1,0 +1,4 @@
+# http://www.pydocstyle.org/en/stable/error_codes.html
+[pydocstyle]
+inherit = false
+ignore = D100,D203,D213,D400

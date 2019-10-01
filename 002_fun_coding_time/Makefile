@@ -71,8 +71,9 @@ diff_cover: test
 	diff-cover coverage.xml
 
 test-all: ## run tests on every supported Python/Django combination
+	pip install -qr $(PROJECT_NAME)/requirements/quality.txt --exists-action w --timeout 120
 	tox -e quality
-	tox
+	# tox
 
 validate: quality test ## run tests and quality checks
 
