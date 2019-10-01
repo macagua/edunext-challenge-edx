@@ -4,9 +4,9 @@ version: 2
 # CircleCI Common References
 references:
   deps_cache_key_001: &deps_cache_key_001
-    dependency-cache-{{ checksum "/home/circleci/project/001_challenge_stack/requirements/dev.txt" }}
+    dependency-cache-{{ checksum "001_challenge_stack/requirements/dev.txt" }}
   deps_cache_key_002: &deps_cache_key_002
-    dependency-cache-{{ checksum "/home/circleci/project/002_fun_coding_time/requirements/dev.txt" }}
+    dependency-cache-{{ checksum "002_fun_coding_time/requirements/dev.txt" }}
   deps_backup_cache_key: &deps_backup_cache_key
     dependency-cache-
   save_cache_paths: &save_cache_paths
