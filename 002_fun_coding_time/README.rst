@@ -8,13 +8,14 @@ PyPalPP
 PyPalPP means PyPal Payment Processor. This application is a REST API 
 provided for the eduNEXT Backend developer challenge.
 
+
 Getting started
 ===============
 
 To get you started on the challenge quickly, we have created some bootstrapping 
 scripts to make things easier.
 
-In plain language all you need to do is create a virtualenv [1] and run the 
+In plain language all you need to do is create a virtualenv [#]_ and run the 
 bootstrap target with make.
 
 A detailed step by step description is:
@@ -26,6 +27,7 @@ A detailed step by step description is:
 	$ source venv/bin/activate
 	$ make bootstrap
 
+
 Executing run server
 ====================
 
@@ -33,7 +35,6 @@ To executing the Django run server, executing the following commands:
 
 ::
 
-    $ cd 002_fun_coding_time
     $ make run
 
 The development server should have started now. You can visit the API by navigating 
@@ -47,8 +48,13 @@ To run your tests, executing the following commands:
 
 ::
 
-    $ cd 002_fun_coding_time
     $ make test
+
+To run the test suite against all support Python versions (2.7 and 3.5), executing the following commands:
+
+::
+
+    $ make test-all
 
 
 Distribution
@@ -64,14 +70,13 @@ To build the docs and see the docs, after building, executing the following comm
 
     $ make distros
 
-
 ----
 
 .. rubric:: Footnotes
 
-[1]: Virtualenv is a python utility to make development simple. A guide
-     on how to install virtualenv for Linux, Mac and Windows is available 
-     here (no need to do the django part): http://pythoncentral.io/how-to-install-python-django-windows-mac-linux/
+.. [#] Virtualenv is a python utility to make development simple. A guide
+       on how to install virtualenv for Linux, Mac and Windows is available 
+       here (no need to do the django part): http://pythoncentral.io/how-to-install-python-django-windows-mac-linux/
 
-     **Disclaimer**: this instructions were tested using a linux OS, if you 
-     have problems running this in a different OS, please let us know.
+       **Disclaimer**: this instructions were tested using a linux OS, if you 
+       have problems running this in a different OS, please let us know.
