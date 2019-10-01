@@ -62,12 +62,12 @@ jobs:
             make test-all
 
       # Step 4 - run server for 001_challenge_stack
-      - run:
-          name: Install dependencies
-          command: |
-            . venv/bin/activate
-            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
-            make run
+      # - run:
+      #     name: Run server for 001_challenge_stack
+      #     command: |
+      #       . venv/bin/activate
+      #       cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
+      #       make run
 
       # Generates and stores a cache of a file or directory of files such as
       # dependencies or source code in our object storage.
@@ -119,12 +119,12 @@ jobs:
             make test-all
 
       # Step 4 - run server for 002_challenge_stack
-      - run:
-          name: Install dependencies
-          command: |
-            . venv/bin/activate
-            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
-            make run
+      # - run:
+      #     name: Run server for 002_challenge_stack
+      #     command: |
+      #       . venv/bin/activate
+      #       cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
+      #       make run
 
       # Generates and stores a cache of a file or directory of files such as
       # dependencies or source code in our object storage.
