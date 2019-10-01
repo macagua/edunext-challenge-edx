@@ -4,11 +4,18 @@ version: 2
 # CircleCI Common References
 references:
   deps_cache_key_001: &deps_cache_key_001
-    dependency-cache-{{ checksum "001_challenge_stack/requirements/dev.txt" }}
+    v1-dependencies-{{ checksum "001_challenge_stack/requirements/dev.txt" }}
   deps_cache_key_002: &deps_cache_key_002
-    dependency-cache-{{ checksum "002_fun_coding_time/requirements/dev.txt" }}
+    v1-dependencies-{{
+    checksum ".circleci/config.yml" }}-pip-deps-{{
+    checksum "002_fun_coding_time/requirements/dev.txt" }}-{{
+    checksum "002_fun_coding_time/requirements/doc.txt" }}-{{
+    checksum "002_fun_coding_time/requirements/quality.txt" }}-{{
+    checksum "002_fun_coding_time/requirements/test.txt" }}-{{
+    checksum "002_fun_coding_time/requirements/travis.txt" }}-{{
+    arch }}
   deps_backup_cache_key: &deps_backup_cache_key
-    dependency-cache-
+    v1-dependencies-
   save_cache_paths: &save_cache_paths
     - ./venv
     - .tox
