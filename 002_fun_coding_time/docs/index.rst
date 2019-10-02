@@ -14,9 +14,10 @@ Contents:
    about
    install
    using
-   license
    testing
    contribute
+   license
+   changelog
    todo
 
 

@@ -394,6 +394,7 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 # Add mappings https://kev.inburke.com/kevin/sphinx-interlinks/
 intersphinx_mapping = {
-    # 'https://docs.python.org/3/': None
+    'python': ('https://docs.python.org/3.5', None),
+    'django': ('https://docs.djangoproject.com/en/1.11/', 'https://docs.djangoproject.com/en/1.11/_objects/'),
 }
 intersphinx_timeout = 120

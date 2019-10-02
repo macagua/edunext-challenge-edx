@@ -23,20 +23,7 @@ A detailed step by step description is:
     $ source venv/bin/activate
     $ make bootstrap
 
-
-Executing run server
---------------------
-
-To executing the Django run server, executing the following commands:
-
-::
-
-    $ make run
-
-The development server should have started now. You can visit the API 
-by navigating in a browser to:
-`http://localhost:8011/api/v1/MAIN-ENDPOINT/ <http://localhost:8011/api/v1/MAIN-ENDPOINT/>`_.
-
+When is done, you have the environment is ready for running!
 
 ----
 
