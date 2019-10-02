@@ -1,0 +1,5 @@
+.icon-home:before {
+    content: url('../img/edunext_logo.png');
+    display: block;
+    margin-bottom: 0.404em;
+}

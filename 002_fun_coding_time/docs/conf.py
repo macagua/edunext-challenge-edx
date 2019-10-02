@@ -171,14 +171,14 @@ html_theme_path = [edx_theme.get_html_theme_path()]
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #
-html_logo = '_static/edunext_co_logo.png'
+html_logo = '_static/img/edunext_co_logo.png'
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 #
 # html_favicon = os.path.join(html_theme_path[0], 'edx_theme', 'static', 'css', 'favicon.ico')
-html_favicon = '_static/favicon-64.png'
+html_favicon = '_static/img/favicon.ico'
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -398,3 +398,8 @@ intersphinx_mapping = {
     'django': ('https://docs.djangoproject.com/en/1.11/', 'https://docs.djangoproject.com/en/1.11/_objects/'),
 }
 intersphinx_timeout = 120
+
+# add custom files that are stored in _static
+def setup(app):
+   app.add_stylesheet("styles/theme.css")
+#   app.add_javascript("_static/scripts/custom.js")
