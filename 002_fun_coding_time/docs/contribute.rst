@@ -10,4 +10,8 @@ commands:
 
 ::
 
+    $ sudo apt update && sudo apt upgrade -y
+    $ sudo apt install -y git build-essential python3-dev
+    $ sudo apt install -y python3-setuptools python3-pip python3-virtualenv
+    $ sudo apt install texlive-latex-base texlive-latex-recommended texlive-lang-spanish
     $ make docs

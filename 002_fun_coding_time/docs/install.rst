@@ -16,8 +16,8 @@ A detailed step by step description is:
 
 ::
 
-    $ sudo apt update && sudo aptupgrade -y
-    $ sudo apt install build-essential git python3-virtualenv python3-dev -y
+    $ sudo apt update && sudo apt upgrade -y
+    $ sudo apt install -y git build-essential python3-dev python3-virtualenv
     $ cd 002_fun_coding_time
     $ virtualenv --python=python3 venv
     $ source venv/bin/activate
