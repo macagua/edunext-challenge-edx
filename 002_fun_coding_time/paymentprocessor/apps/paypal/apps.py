@@ -5,4 +5,4 @@ class PaypalConfig(AppConfig):
     """PyPal Payment Processor App Configuration."""
 
     name = 'apps.paypal'
-    verbose_name = 'PyPal Payment Processor App'
+    verbose_name = 'PayPal Payment Processor App'
