@@ -1,5 +1,4 @@
-.PHONY: clean coverage docs help \
-	quality requirements selfcheck test test-all upgrade validate
+.PHONY: clean coverage docs help quality requirements test test-all upgrade validate
 
 .DEFAULT_GOAL := help
 
@@ -33,7 +32,11 @@ erase: clean ## remove everthing, but the code.
 	rm -fr venv/
 	git clean -fx
 
+diff_cover: test
+	diff-cover coverage.xml
+
 docs: ## generate Sphinx HTML documentation, including API docs
+	pip install -qr $(PROJECT_NAME)/requirements/doc.txt --exists-action w --timeout 120
 	tox -e docs
 	$(BROWSER) docs/_build/html/index.html
 
@@ -48,33 +51,30 @@ upgrade: ## update the paymentprocessor/requirements/*.txt files with the latest
 	sed '/django==/d' $(PROJECT_NAME)/requirements/test.txt > $(PROJECT_NAME)/requirements/test.tmp
 	mv $(PROJECT_NAME)/requirements/test.tmp $(PROJECT_NAME)/requirements/test.txt
 
+quality: ## check coding style with pycodestyle and pylint
+	tox -e quality
+
 requirements: ## install development environment requirements
 	pip install -qr $(PROJECT_NAME)/requirements/dev.txt --exists-action w --timeout 120
 	pip-sync $(PROJECT_NAME)/requirements/dev.txt $(PROJECT_NAME)/requirements/private.* $(PROJECT_NAME)/requirements/test.txt
 
-test: clean ## run tests in the current virtualenv
-	pip install -qr $(PROJECT_NAME)/requirements/test.txt --exists-action w --timeout 120
-	pytest --suppress-no-test-exit-code
+migrate:
+	python $(PROJECT_NAME)/manage.py migrate
+
+validate: quality test ## run tests and quality checks
 
 bootstrap: upgrade requirements migrate ## bootstrap your environment is ready
 	@echo "-------------------------"
 	@echo "Your environment is ready"
 	@echo "Now run: make run"
 
-migrate:
-	python $(PROJECT_NAME)/manage.py migrate
-
 run: ## run the django run server
 	python $(PROJECT_NAME)/manage.py runserver 0.0.0.0:8011
 
-diff_cover: test
-	diff-cover coverage.xml
+test: clean ## run tests in the current virtualenv
+	pip install -qr $(PROJECT_NAME)/requirements/test.txt --exists-action w --timeout 120
+	pytest --suppress-no-test-exit-code
 
 test-all: ## run tests on every supported Python/Django combination
 	tox -e quality
 	tox
-
-validate: quality test ## run tests and quality checks
-
-selfcheck: ## check that the Makefile is well-formed
-	@echo "The Makefile is well-formed."
