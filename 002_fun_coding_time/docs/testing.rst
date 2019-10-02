@@ -28,3 +28,10 @@ quality checks:
 
     $ make test-all
 
+To generate and open an HTML report of how much of the code is covered by
+test cases:
+
+.. code-block:: bash
+
+    $ make coverage
+
