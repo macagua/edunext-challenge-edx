@@ -4,11 +4,25 @@ version: 2
 # CircleCI Common References
 references:
   deps_cache_key_001: &deps_cache_key_001
-    dependency-cache-{{ checksum "/home/circleci/project/001_challenge_stack/requirements/dev.txt" }}
+    v1-dependencies-{{
+    checksum ".circleci/config.yml" }}-pip-deps-{{
+    checksum "001_challenge_stack/requirements/dev.txt" }}-{{
+    checksum "001_challenge_stack/requirements/doc.txt" }}-{{
+    checksum "001_challenge_stack/requirements/quality.txt" }}-{{
+    checksum "001_challenge_stack/requirements/test.txt" }}-{{
+    checksum "001_challenge_stack/requirements/travis.txt" }}-{{
+    arch }}
   deps_cache_key_002: &deps_cache_key_002
-    dependency-cache-{{ checksum "/home/circleci/project/002_fun_coding_time/requirements/dev.txt" }}
+    v1-dependencies-{{
+    checksum ".circleci/config.yml" }}-pip-deps-{{
+    checksum "002_fun_coding_time/paymentprocessor/requirements/dev.txt" }}-{{
+    checksum "002_fun_coding_time/paymentprocessor/requirements/doc.txt" }}-{{
+    checksum "002_fun_coding_time/paymentprocessor/requirements/quality.txt" }}-{{
+    checksum "002_fun_coding_time/paymentprocessor/requirements/test.txt" }}-{{
+    checksum "002_fun_coding_time/paymentprocessor/requirements/travis.txt" }}-{{
+    arch }}
   deps_backup_cache_key: &deps_backup_cache_key
-    dependency-cache-
+    v1-dependencies-
   save_cache_paths: &save_cache_paths
     - ./venv
     - .tox
@@ -62,12 +76,12 @@ jobs:
             make test-all
 
       # Step 4 - run server for 001_challenge_stack
-      - run:
-          name: Install dependencies
-          command: |
-            . venv/bin/activate
-            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
-            make run
+      # - run:
+      #     name: Run server for 001_challenge_stack
+      #     command: |
+      #       . venv/bin/activate
+      #       cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
+      #       make run
 
       # Generates and stores a cache of a file or directory of files such as
       # dependencies or source code in our object storage.
@@ -119,12 +133,12 @@ jobs:
             make test-all
 
       # Step 4 - run server for 002_challenge_stack
-      - run:
-          name: Install dependencies
-          command: |
-            . venv/bin/activate
-            cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
-            make run
+      # - run:
+      #     name: Run server for 002_challenge_stack
+      #     command: |
+      #       . venv/bin/activate
+      #       cd ${CIRCLE_WORKING_DIRECTORY}/${PROJECT_NAME}
+      #       make run
 
       # Generates and stores a cache of a file or directory of files such as
       # dependencies or source code in our object storage.

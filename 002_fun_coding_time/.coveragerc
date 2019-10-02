@@ -1,0 +1,34 @@
+# .coveragerc to control coverage.py
+[run]
+## whether to measure branch coverage in addition to statement coverage.
+# branch = True
+
+## a list of file name patterns, the files to leave out of measurement or reporting.
+omit = setup.py
+
+## a list of packages or directories, the source to measure during execution.
+source = paymentprocessor
+
+[report]
+## a list of regular expressions for lines to exclude from consideration.
+exclude_lines =
+    if __name__ == .__main__.:
+
+## a list of file name patterns, the files to leave out of reporting.
+omit =
+    .tox/*
+    build/*
+    dist/*
+    docs/*
+    tests/*
+    venv/*
+
+## when running a summary report, show missing lines.
+show_missing = True
+
+[html]
+## where to write the HTML report files.
+directory = htmlcov
+
+## the title to use for the report.
+title = Coverage report from 'PayPal Payment Processor' package

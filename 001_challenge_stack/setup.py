@@ -11,9 +11,7 @@ from setuptools import setup
 
 
 def get_version(*file_paths):
-    """
-    Extract the version string from the file at the given relative path fragments.
-    """
+    """Extract the version string from the file at the given relative path fragments."""
     filename = os.path.join(os.path.dirname(__file__), *file_paths)
     version_file = open(filename).read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",

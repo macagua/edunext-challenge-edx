@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+"""django-admin script module."""
+
 import os
 import sys
 

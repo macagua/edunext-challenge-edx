@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.1 (xxxx-xx-xx)
+0.1 (unreleased)
 ----------------
 
-- Created project with Django skeleton
-  [""]
+- Created project with Django skeleton.
+  ["macagua"]
