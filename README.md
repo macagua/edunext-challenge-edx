@@ -1,6 +1,6 @@
 # eduNEXT Coding Challenge
 
-[![CircleCI](https://circleci.com/bb/macagua/edunext-challenge.svg?style=svg)](https://circleci.com/bb/macagua/edunext-challenge)
+[![CircleCI](https://dl.circleci.com/status-badge/img/bb/macagua/edunext-challenge/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/bb/macagua/edunext-challenge/tree/master)
 
 In this repository you will find the description and files of three coding challenges.
 
