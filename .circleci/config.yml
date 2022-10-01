@@ -36,7 +36,7 @@ jobs:
     docker:
       # Every job must define an image for the docker executor and subsequent
       # jobs may define a different image.
-      - image: circleci/python:2.7.16-stretch
+      - image: circleci/python:3.7.14-browsers
     environment:
       PROJECT_NAME: 001_challenge_stack
     working_directory: /home/circleci/project # as $CIRCLE_WORKING_DIRECTORY
